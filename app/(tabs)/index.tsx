@@ -1,8 +1,8 @@
-import Features from '../features';
+import Explore from '../features/Explore.tsx';
 
 export default function HomeScreen() {
   return (
-    <Features />
+    <Explore />
   );
 }
 
