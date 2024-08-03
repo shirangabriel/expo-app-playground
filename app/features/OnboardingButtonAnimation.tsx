@@ -1,6 +1,7 @@
 import { StyleSheet, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { Stack } from 'expo-router';
 
 export default function OnboardingButtonAnimation() {
 
@@ -30,6 +31,7 @@ export default function OnboardingButtonAnimation() {
   {/* <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} /> */ }
   return (
     <SafeAreaView style={styles.container}>
+      <Stack.Screen options={{ headerTitle: "Onboarding Animation" }} />
       <ThemedView style={styles.wrapper}>
         <View style={styles.dotIndicatorWrapper}>
           <View style={styles.dotIndicator} />

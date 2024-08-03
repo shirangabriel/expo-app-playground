@@ -8,8 +8,20 @@ export default function Features() {
     type data = { id: string, title: string }
 
     const handleOnPress = (item: data) => {
-        console.log("Pressed", item);
-        router.navigate("features/1")
+        switch (item.id) {
+            case "1":
+                router.navigate("features/OnboardingButtonAnimation")
+                break;
+            case "2":
+                router.navigate("features/webviewsession")
+                break;
+
+            default:
+                break;
+        }
+
+        // file base routing 
+        // router.navigate("features/1")
     }
 
     const Item = ({ title, onPress }: ItemProps) => (
@@ -19,15 +31,15 @@ export default function Features() {
     );
 
     return <SafeAreaView style={styles.container}>
-        <Stack.Screen options={{ headerShown: false }} />
+        <Stack.Screen options={{ headerShown: false, headerTitle: "" }} />
         <FlatList
             data={data}
             renderItem={({ item }) => <Item title={item.title} onPress={() => handleOnPress(item)} />}
             keyExtractor={item => item.id} />
 
-        {/* <View style={{ backgroundColor: 'white' }}>
+        <View style={{ backgroundColor: 'white' }}>
             <Link href={"/list/1"}>List</Link>
-        </View> */}
+        </View>
 
     </SafeAreaView>
 
