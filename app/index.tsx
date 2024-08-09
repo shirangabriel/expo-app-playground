@@ -15,6 +15,9 @@ export default function Features() {
             case "2":
                 router.navigate("features/webviewsession")
                 break;
+            case "3":
+                router.navigate("features/")
+                break;
 
             default:
                 break;
@@ -36,11 +39,6 @@ export default function Features() {
             data={data}
             renderItem={({ item }) => <Item title={item.title} onPress={() => handleOnPress(item)} />}
             keyExtractor={item => item.id} />
-
-        <View style={{ backgroundColor: 'white' }}>
-            <Link href={"/list/1"}>List</Link>
-        </View>
-
     </SafeAreaView>
 
 }
@@ -51,7 +49,7 @@ const styles = StyleSheet.create({
         display: 'flex',
     },
     item: {
-        backgroundColor: '#f9c2ff',
+        backgroundColor: '#C1E0F7',
         padding: 20,
         marginVertical: 2,
         marginHorizontal: 16,

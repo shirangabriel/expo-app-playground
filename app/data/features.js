@@ -8,4 +8,8 @@ export const data = [
         id: '2',
         title: 'Webview',
     },
+    {
+        id: '3',
+        title: 'URL Based Routing',
+    },
 ];

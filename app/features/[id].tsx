@@ -3,7 +3,7 @@ import { ThemedView } from "@/components/ThemedView"
 import { StyleSheet } from "react-native"
 import { useLocalSearchParams } from 'expo-router'
 
-export const FeaturePage = () => {
+export const index = () => {
 
     const { id } = useLocalSearchParams()
 
