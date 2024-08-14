@@ -2,8 +2,12 @@ import { StyleSheet, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Stack } from 'expo-router';
+import Features from '@/app';
+import ButtonView from './buttonView';
+import { useState } from 'react';
 
 export default function OnboardingButtonAnimation() {
+  const [showBackButton, setShowBackButton] = useState(true);
 
 
   const DATA = [
@@ -28,7 +32,6 @@ export default function OnboardingButtonAnimation() {
     </ThemedView>
   );
 
-  {/* <FlatList data={DATA} renderItem={({ item }) => <Item title={item.title} />} /> */ }
   return (
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerTitle: "Onboarding Animation" }} />
@@ -38,14 +41,13 @@ export default function OnboardingButtonAnimation() {
           <View style={[styles.dotIndicator, styles.dotIndicatorActive]} />
           <View style={styles.dotIndicator} />
         </View>
-        <ThemedView style={styles.buttonWrapper}>
-          <TouchableOpacity style={[styles.button, styles.secondaryButton]}>
-            <ThemedText type='defaultSemiBold'>Back</ThemedText>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.primaryButton]}>
-            <ThemedText style={styles.buttonText} type='defaultSemiBold'>Continue</ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
+
+        <ButtonView
+          showLeftButton={showBackButton}
+          rightButtonPressed={() => setShowBackButton(true)}
+          leftButtonPressed={() => setShowBackButton(false)}
+        />
+
       </ThemedView>
     </SafeAreaView>
   );
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   item: {
@@ -87,38 +89,5 @@ const styles = StyleSheet.create({
   dotIndicatorActive: {
     borderColor: 'red',
     borderWidth: 2
-  },
-  buttonWrapper: {
-    marginTop: 16,
-    flexDirection: 'row',
-    width: 300,
-    backgroundColor: '#Efefef',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  button: {
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 16,
-    paddingRight: 16
-
-  },
-  primaryButton: {
-    backgroundColor: "#0a7ea4",
-    width: '100%',
-    flex: 2,
-  },
-  secondaryButton: {
-    flex: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    marginRight: 16
-
-  },
-  buttonText: {
-    color: 'white'
   }
 });
