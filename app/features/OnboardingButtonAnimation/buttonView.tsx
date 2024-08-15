@@ -1,7 +1,7 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView"
-import { StyleSheet } from "react-native"
-import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
+import { StyleSheet, useWindowDimensions } from "react-native"
+import Animated, { useAnimatedStyle, withSpring, withTiming } from "react-native-reanimated";
 
 type Props = {
     showLeftButton: boolean;
@@ -11,8 +11,12 @@ type Props = {
 
 
 export default function ButtonView({ showLeftButton, rightButtonPressed, leftButtonPressed }: Props) {
-    const leftButtonWidth = showLeftButton ? "50%" : 0
-    const rightButtonWidth = showLeftButton ? "50%" : "100%"
+    const { width: windowWidth } = useWindowDimensions();
+    const horizontalPadding = 16;
+    const smallButtonWidth = (windowWidth / 3) - (horizontalPadding)
+
+    const leftButtonWidth = showLeftButton ? smallButtonWidth : 0
+    const rightButtonWidth = showLeftButton ? smallButtonWidth * 2 : (smallButtonWidth * 3)
 
 
     const leftAnimatedStyle = useAnimatedStyle(() => ({
@@ -45,28 +49,25 @@ const styles = StyleSheet.create({
         marginTop: 16,
         flexDirection: 'row',
         alignItems: 'center',
+        justifyContent: 'center',
         width: '100%',
-        height: 60,
-        paddingHorizontal: 20,
-        // gap: 10
+        height: 50,
+        marginBottom: 50
     },
     button: {
-        borderRadius: 5,
+        borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
         paddingTop: 8,
         paddingBottom: 8,
-        height: 60,
-
-
+        height: 50,
     },
     primaryButton: {
-        backgroundColor: "#172A3A",
+        backgroundColor: "#3375F6",
     },
     secondaryButton: {
         borderColor: 'gray',
-        borderRadius: 5,
-        backgroundColor: '#E2EBF3',
+        backgroundColor: '#F5F5F5',
     },
     buttonText: {
         color: 'white'
