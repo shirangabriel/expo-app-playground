@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { Link, Stack, router } from 'expo-router';
 import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native';
 import { data } from './data/features'
+import { useThemeColor } from '@/hooks/useThemeColor';
 export default function Features() {
 
     type ItemProps = { title: string, onPress: () => void };
@@ -28,7 +29,7 @@ export default function Features() {
     }
 
     const Item = ({ title, onPress }: ItemProps) => (
-        <TouchableOpacity style={styles.item} onPress={onPress}>
+        <TouchableOpacity style={[styles.item, { backgroundColor: useThemeColor({}, "background") }]} onPress={onPress}>
             <ThemedText style={styles.title}>{title}</ThemedText>
         </TouchableOpacity>
     );
@@ -49,7 +50,6 @@ const styles = StyleSheet.create({
         display: 'flex',
     },
     item: {
-        backgroundColor: '#C1E0F7',
         padding: 20,
         marginVertical: 2,
         marginHorizontal: 16,

@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView"
+import { useThemeColor } from "@/hooks/useThemeColor";
 import { StyleSheet, useWindowDimensions } from "react-native"
 import Animated, { useAnimatedStyle, withSpring, withTiming } from "react-native-reanimated";
 
@@ -18,6 +19,9 @@ export default function ButtonView({ showLeftButton, rightButtonPressed, leftBut
     const leftButtonWidth = showLeftButton ? smallButtonWidth : 0
     const rightButtonWidth = showLeftButton ? smallButtonWidth * 2 : (smallButtonWidth * 3)
 
+    const primaryButtonStyle = { backgroundColor: useThemeColor({}, "button") }
+    const secondaryButtonStyle = { backgroundColor: useThemeColor({}, "secondaryButton") }
+
 
     const leftAnimatedStyle = useAnimatedStyle(() => ({
         width: withTiming(leftButtonWidth),
@@ -32,13 +36,13 @@ export default function ButtonView({ showLeftButton, rightButtonPressed, leftBut
     return <ThemedView style={styles.buttonWrapper}>
         <Animated.View
             onTouchEnd={leftButtonPressed}
-            style={[styles.button, styles.secondaryButton, leftAnimatedStyle]}>
+            style={[styles.button, secondaryButtonStyle, leftAnimatedStyle]}>
             <ThemedText type='defaultSemiBold'>Back</ThemedText>
         </Animated.View>
         <Animated.View
             onTouchEnd={rightButtonPressed}
-            style={[styles.button, styles.primaryButton, rightAnimatedStyle]}>
-            <ThemedText style={styles.buttonText} type='defaultSemiBold'>Continue</ThemedText>
+            style={[styles.button, primaryButtonStyle, rightAnimatedStyle]}>
+            <ThemedText type='defaultSemiBold'>Continue</ThemedText>
         </Animated.View>
     </ThemedView>
 }
@@ -62,14 +66,7 @@ const styles = StyleSheet.create({
         paddingBottom: 8,
         height: 50,
     },
-    primaryButton: {
-        backgroundColor: "#3375F6",
-    },
-    secondaryButton: {
-        borderColor: 'gray',
-        backgroundColor: '#F5F5F5',
-    },
-    buttonText: {
+    textStyle: {
         color: 'white'
     }
 });
