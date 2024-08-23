@@ -1,36 +1,12 @@
 import { ThemedText } from '@/components/ThemedText';
 import { Link, Stack, router } from 'expo-router';
 import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native';
-import { data } from './data/features'
+import { features } from './data/features'
 import { useThemeColor } from '@/hooks/useThemeColor';
 import OnboardingButtonAnimation from './features/OnboardingButtonAnimation';
 export default function Features() {
 
     type ItemProps = { title: string, onPress: () => void };
-    type data = { id: string, title: string }
-
-    const handleOnPress = (item: data) => {
-        switch (item.id) {
-            case "1":
-                router.navigate("features/OnboardingButtonAnimation")
-                break;
-            case "2":
-                router.navigate("features/webviewsession")
-                break;
-            case "3":
-                router.navigate("features/")
-                break;
-            case "4":
-                router.navigate("features/ChangeTheme")
-                break;
-
-            default:
-                break;
-        }
-
-        // file base routing 
-        // router.navigate("features/1")
-    }
 
     const Item = ({ title, onPress }: ItemProps) => (
         <TouchableOpacity style={[styles.item, { backgroundColor: useThemeColor({}, "background") }]} onPress={onPress}>
@@ -41,9 +17,10 @@ export default function Features() {
     return <SafeAreaView style={styles.container}>
         <Stack.Screen options={{ headerShown: false, headerTitle: "" }} />
         <FlatList
-            data={data}
-            renderItem={({ item }) => <Item title={item.title} onPress={() => handleOnPress(item)} />}
-            keyExtractor={item => item.id} />
+            data={Object.values(features)}
+            renderItem={({ item }) => <Item title={item.title}
+                onPress={() => router.navigate(item.slug)} />}
+        />
     </SafeAreaView>
 
 }

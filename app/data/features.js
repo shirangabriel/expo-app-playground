@@ -1,19 +1,27 @@
-
-export const data = [
-    {
-        id: '1',
+export const features = {
+    "f1": {
+        id: 'f1',
         title: 'Onboarding Animation',
+        slug: 'features/OnboardingButtonAnimation'
     },
-    {
-        id: '2',
+    "f2": {
+        id: 'f2',
         title: 'Webview',
+        slug: 'features/webviewsession'
     },
-    {
-        id: '3',
+    "f3": {
+        id: 'f3',
         title: 'URL Based Routing',
+        slug: 'features/'
     },
-    {
-        id: '4',
+    "f4": {
+        id: 'f4',
         title: 'Change Theme',
+        slug: 'features/ChangeTheme'
     },
-];
+    "f5": {
+        id: 'f5',
+        title: 'Count Down Timer',
+        slug: 'features/CountDownAnimation'
+    }
+};
