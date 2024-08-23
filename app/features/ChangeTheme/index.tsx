@@ -20,7 +20,7 @@ export default function ChangeTheme() {
 
     const CircleBg = {
         light: '#fff',
-        dark: '#1a1a1a',
+        dark: '#000000',
     }
     const CircleShadow = {
         light: '#000',
