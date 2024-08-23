@@ -1,8 +1,6 @@
-import { StyleSheet, SafeAreaView, View, TouchableOpacity } from 'react-native';
-import { ThemedText } from '@/components/ThemedText';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';
 import { Stack } from 'expo-router';
-import Features from '@/app';
 import ButtonView from './buttonView';
 import { useEffect, useState } from 'react';
 import { Indicator } from './indicator';
