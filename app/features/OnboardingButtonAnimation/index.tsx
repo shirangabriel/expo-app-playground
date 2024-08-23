@@ -33,7 +33,7 @@ export default function OnboardingButtonAnimation() {
     <SafeAreaView style={styles.container}>
       <Stack.Screen options={{ headerTitle: "Onboarding Animation" }} />
       <ThemedView style={styles.wrapper}>
-        <Indicator paginationCount={stepCount} currentSelected={currentStepCount} />
+        {/* <Indicator paginationCount={stepCount} currentSelected={currentStepCount} /> */}
 
         <ButtonView
           showLeftButton={showBackButton}

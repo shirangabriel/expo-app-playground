@@ -12,4 +12,8 @@ export const data = [
         id: '3',
         title: 'URL Based Routing',
     },
+    {
+        id: '4',
+        title: 'Change Theme',
+    },
 ];

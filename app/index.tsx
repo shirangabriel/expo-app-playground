@@ -3,6 +3,7 @@ import { Link, Stack, router } from 'expo-router';
 import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native';
 import { data } from './data/features'
 import { useThemeColor } from '@/hooks/useThemeColor';
+import OnboardingButtonAnimation from './features/OnboardingButtonAnimation';
 export default function Features() {
 
     type ItemProps = { title: string, onPress: () => void };
@@ -18,6 +19,9 @@ export default function Features() {
                 break;
             case "3":
                 router.navigate("features/")
+                break;
+            case "4":
+                router.navigate("features/ChangeTheme")
                 break;
 
             default:
