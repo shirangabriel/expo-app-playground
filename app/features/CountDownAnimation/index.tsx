@@ -16,11 +16,9 @@ export default function CountDownAnimation() {
     const [filled, setFill] = useState<boolean>(false);
     const [counter, setCounter] = useState<number>(0);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+    const [seconds, setSeconds] = useState<number>(1);
 
-    const circleSize = 50;
-    const steps = 5
-
-
+    const circleSize = 70;
 
     const circleToFillScreen = useAnimatedStyle(() => ({
         width: filled ? withTiming(width) : circleSize,
@@ -30,19 +28,16 @@ export default function CountDownAnimation() {
     }))
 
     const unFillAnimation = useAnimatedStyle(() => ({
-        height: withTiming(height - ((height / steps) * (counter)))
+        height: withTiming(height - ((height / seconds) * (counter)))
     }), [counter])
 
 
     useEffect(() => {
-        if (counter > 0 && counter < steps) {
+        if (counter > 0 && counter < seconds) {
             const id = setTimeout(() => setCounter(counter + 1), 1000);
             setTimeoutId(id);
-        } else if (counter >= steps) {
-            console.log('Stopped ticking after 5 seconds.');
-
+        } else if (counter >= seconds) {
             setFill(false)
-
         }
 
         return () => {
@@ -100,10 +95,14 @@ export default function CountDownAnimation() {
             horizontal
             showsHorizontalScrollIndicator={false}
             bounces={false}
+            onMomentumScrollEnd={ev => {
+                const index = Math.round(ev.nativeEvent.contentOffset.x / ITEM_SIZE)
+                setSeconds(timerList[index])
+            }}
             keyExtractor={item => item.toString()}
             snapToInterval={ITEM_SIZE}
             decelerationRate={'fast'}
-            contentContainerStyle={{ paddingHorizontal: ITEM_SIZE  }}
+            contentContainerStyle={{ paddingHorizontal: ITEM_SIZE }}
             onScroll={ReactAnimated.event(
                 [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                 { useNativeDriver: true }
@@ -118,26 +117,23 @@ export default function CountDownAnimation() {
 
                 const opacity = scrollX.interpolate({
                     inputRange,
-                    outputRange: [0.3, 1, 0.3]
+                    outputRange: [0.4, 1, 0.4]
                 })
                 const scale = scrollX.interpolate({
                     inputRange,
-                    outputRange: [0.7, 1, 0.7]
+                    outputRange: [0.6, 1.1, 0.6]
                 })
 
-                return <View style={{ width: ITEM_SIZE, justifyContent: 'center', alignItems: 'center' }}>
+                return <View style={styles.timerListView}>
                     <ReactAnimated.Text
                         style={
                             [styles.text,
                             { opacity },
-                            { transform: [{ scale }] } 
-                            
-                            ]}>
+                            { transform: [{ scale }] }]}>
                         {item}</ReactAnimated.Text>
                 </View>
 
-            }
-            } />
+            }} />
 
     </View>
 }
@@ -151,6 +147,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         // backgroundColor: '#172A3A'
         backgroundColor: '#242331'
+    },
+    timerListView: {
+        width: ITEM_SIZE,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     circle: {
         backgroundColor: '#F55D3E',
