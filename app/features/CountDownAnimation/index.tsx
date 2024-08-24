@@ -1,16 +1,25 @@
 import { Stack } from "expo-router";
-import { useEffect, useState } from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { Animated as ReactAnimated, Dimensions, StyleSheet, View } from "react-native";
 import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
 
+const { width, height } = Dimensions.get('window');
+
+const timerList = [...Array(13).keys()].map(i => i === 0 ? 1 : i * 5);
+const ITEM_SIZE = width * 0.32
+// const ITEM_SPACING = (width - ITEM_SIZE) / 2
+
 export default function CountDownAnimation() {
+
+    const scrollX = React.useRef(new ReactAnimated.Value(0)).current
+
     const [filled, setFill] = useState<boolean>(false);
     const [counter, setCounter] = useState<number>(0);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
-    const { width, height } = Dimensions.get('window');
     const circleSize = 50;
     const steps = 5
+
 
 
     const circleToFillScreen = useAnimatedStyle(() => ({
@@ -84,7 +93,52 @@ export default function CountDownAnimation() {
             [styles.circle, circleToFillScreen,
             (counter > 0 && unFillAnimation)]}
             onTouchEnd={handleButtonPress} />
-        <Text style={styles.text}>{steps - counter}</Text>
+
+        <ReactAnimated.FlatList
+            style={{ flexGrow: 0 }}
+            data={timerList}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            bounces={false}
+            keyExtractor={item => item.toString()}
+            snapToInterval={ITEM_SIZE}
+            decelerationRate={'fast'}
+            contentContainerStyle={{ paddingHorizontal: ITEM_SIZE  }}
+            onScroll={ReactAnimated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                { useNativeDriver: true }
+
+            )}
+            renderItem={({ item, index }) => {
+                const inputRange = [
+                    (index - 1) * ITEM_SIZE,
+                    index * ITEM_SIZE,
+                    (index + 1) * ITEM_SIZE,
+                ]
+
+                const opacity = scrollX.interpolate({
+                    inputRange,
+                    outputRange: [0.3, 1, 0.3]
+                })
+                const scale = scrollX.interpolate({
+                    inputRange,
+                    outputRange: [0.7, 1, 0.7]
+                })
+
+                return <View style={{ width: ITEM_SIZE, justifyContent: 'center', alignItems: 'center' }}>
+                    <ReactAnimated.Text
+                        style={
+                            [styles.text,
+                            { opacity },
+                            { transform: [{ scale }] } 
+                            
+                            ]}>
+                        {item}</ReactAnimated.Text>
+                </View>
+
+            }
+            } />
+
     </View>
 }
 
@@ -103,9 +157,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
     },
     text: {
-        fontSize: 76,
-        fontWeight: 'bold',
-        marginBottom: '50%',
+        fontSize: ITEM_SIZE * 0.7,
+        fontWeight: '900',
         color: 'white',
+        textAlign: 'center'
     }
 })
