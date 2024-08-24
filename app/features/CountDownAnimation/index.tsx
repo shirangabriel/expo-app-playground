@@ -7,7 +7,6 @@ export default function CountDownAnimation() {
     const [filled, setFill] = useState<boolean>(false);
     const [counter, setCounter] = useState<number>(0);
     const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
-    const [startCountDownAnimation, setStartCountDownAnimation] = useState<boolean>(false)
 
     const { width, height } = Dimensions.get('window');
     const circleSize = 50;
@@ -32,6 +31,9 @@ export default function CountDownAnimation() {
             setTimeoutId(id);
         } else if (counter >= steps) {
             console.log('Stopped ticking after 5 seconds.');
+
+            setFill(false)
+
         }
 
         return () => {
@@ -78,7 +80,9 @@ export default function CountDownAnimation() {
 
     return <View style={styles.container}>
         <Stack.Screen options={{ headerTitle: "", headerShown: false }} />
-        <Animated.View style={[styles.circle, circleToFillScreen, (counter > 0 && unFillAnimation)]}
+        <Animated.View style={
+            [styles.circle, circleToFillScreen,
+            (counter > 0 && unFillAnimation)]}
             onTouchEnd={handleButtonPress} />
         <Text style={styles.text}>{steps - counter}</Text>
     </View>
