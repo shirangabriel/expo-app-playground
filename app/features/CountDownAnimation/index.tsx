@@ -120,6 +120,17 @@ export default function CountDownAnimation() {
         ]}
             onTouchEnd={animation} />
 
+
+
+        <Animated.View style={{
+            position: 'absolute',
+            justifyContent: 'center',
+            alignSelf: "center",
+            opacity: textOpacity
+        }}>
+            <TextInput ref={inputRef} style={[styles.text]} defaultValue={seconds.toString()} />
+        </Animated.View>
+
         <Animated.FlatList
             style={{ flexGrow: 0, opacity }}
             data={timerList}
@@ -167,14 +178,6 @@ export default function CountDownAnimation() {
             }} />
 
 
-        <Animated.View style={{
-            position: 'absolute',
-            justifyContent: 'center',
-            alignSelf: "center",
-            opacity: textOpacity
-        }}>
-            <TextInput ref={inputRef} style={[styles.text]} defaultValue={seconds.toString()} />
-        </Animated.View>
 
     </View>
 }
