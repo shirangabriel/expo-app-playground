@@ -1,7 +1,6 @@
 import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { Animated as ReactAnimated, Dimensions, StyleSheet, View } from "react-native";
-import Animated, { useAnimatedStyle, withTiming } from "react-native-reanimated";
+import { Animated, Dimensions, StyleSheet, TextInput, Vibration, View } from "react-native";
 
 const { width, height } = Dimensions.get('window');
 
@@ -10,87 +9,119 @@ const ITEM_SIZE = width * 0.32
 // const ITEM_SPACING = (width - ITEM_SIZE) / 2
 
 export default function CountDownAnimation() {
-
-    const scrollX = React.useRef(new ReactAnimated.Value(0)).current
-
-    const [filled, setFill] = useState<boolean>(false);
-    const [counter, setCounter] = useState<number>(0);
-    const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+    const scrollX = React.useRef(new Animated.Value(0)).current
+    const inputRef = React.useRef();
     const [seconds, setSeconds] = useState<number>(1);
-
-    const circleSize = 70;
-
-    const circleToFillScreen = useAnimatedStyle(() => ({
-        width: filled ? withTiming(width) : circleSize,
-        height: filled ? withTiming(height) : circleSize,
-        bottom: filled ? withTiming(0) : 100,
-        borderRadius: filled ? withTiming(0) : circleSize / 2
-    }))
-
-    const unFillAnimation = useAnimatedStyle(() => ({
-        height: withTiming(height - ((height / seconds) * (counter)))
-    }), [counter])
+    const timerAnimation = React.useRef(new Animated.Value(height)).current
+    const buttonAnimation = React.useRef(new Animated.Value(0)).current
+    const textInputAnimation = React.useRef(new Animated.Value(timerList[0])).current
 
 
     useEffect(() => {
-        if (counter > 0 && counter < seconds) {
-            const id = setTimeout(() => setCounter(counter + 1), 1000);
-            setTimeoutId(id);
-        } else if (counter >= seconds) {
-            setFill(false)
-        }
+        const listener = textInputAnimation.addListener(({ value }) => {
+            inputRef?.current?.setNativeProps({
+                text: Math.ceil(value).toString(),
+            });
+        })
+
 
         return () => {
-            if (timeoutId) {
-                clearTimeout(timeoutId);
-            }
-        };
-    }, [counter])
-
-
-    useEffect(() => {
-        console.log({ filled, counter });
-
-        if (filled && counter === 0) {
-            setTimeout(() => {
-                startTicking()
-            }, 300);
-        } else {
-            // stop
-            stopTicking()
-            setCounter(0)
+            textInputAnimation.removeListener(listener);
+            textInputAnimation.removeAllListeners()
         }
-    }, [filled])
+
+    })
 
 
-    const handleButtonPress = () => {
-        setFill(!filled)
-    }
+    const animation = React.useCallback(() => {
+        textInputAnimation.setValue(seconds);
+        Animated.sequence([
+            Animated.timing(buttonAnimation, {
+                toValue: 1,
+                duration: 300,
+                useNativeDriver: true,
+            }),
+            Animated.timing(timerAnimation, {
+                toValue: 0,
+                duration: 300,
+                useNativeDriver: true,
+            }),
 
-    const startTicking = () => {
-        if (counter === 0) {
-            setCounter(1); // Start the ticking process
-        }
-    };
 
-    const stopTicking = () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId); // Cancel the scheduled tick
-            console.log('Ticking stopped by stopTicking function.');
-        }
-    };
+            Animated.parallel([
+                Animated.timing(textInputAnimation, {
+                    toValue: 0,
+                    duration: seconds * 1000,
+                    useNativeDriver: true,
+                }),
+                Animated.timing(timerAnimation, {
+                    toValue: height,
+                    duration: seconds * 1000,
+                    useNativeDriver: true,
+                })
+            ]),
+
+            Animated.delay(400)
+
+        ]).start(() => {
+            Vibration.cancel();
+            Vibration.vibrate();
+            textInputAnimation.setValue(seconds)
+            Animated.timing(buttonAnimation, {
+                toValue: 0,
+                duration: 300,
+                useNativeDriver: true
+            }).start()
+        })
+    }, [seconds])
+
+
+    const opacity = buttonAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [1, 0]
+    })
+    const translateY = buttonAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 200]
+    })
+
+    const textOpacity = buttonAnimation.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, 1]
+    })
 
 
 
     return <View style={styles.container}>
         <Stack.Screen options={{ headerTitle: "", headerShown: false }} />
-        <Animated.View style={
-            [styles.circle, circleToFillScreen,
-            (counter > 0 && unFillAnimation)]}
-            onTouchEnd={handleButtonPress} />
+        <Animated.View
+            style={[StyleSheet.absoluteFill, {
+                height,
+                width,
+                backgroundColor: '#F55D3E',
+                transform: [{
+                    translateY: timerAnimation
+                }]
+            }]}
+        />
 
-        <ReactAnimated.FlatList
-            style={{ flexGrow: 0 }}
+        <Animated.View style={[
+            styles.circle,
+            {
+                width: 50,
+                height: 50,
+                bottom: 200,
+                opacity,
+                transform: [{
+                    translateY
+                }]
+            }
+
+        ]}
+            onTouchEnd={animation} />
+
+        <Animated.FlatList
+            style={{ flexGrow: 0, opacity }}
             data={timerList}
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -103,7 +134,7 @@ export default function CountDownAnimation() {
             snapToInterval={ITEM_SIZE}
             decelerationRate={'fast'}
             contentContainerStyle={{ paddingHorizontal: ITEM_SIZE }}
-            onScroll={ReactAnimated.event(
+            onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                 { useNativeDriver: true }
 
@@ -121,19 +152,29 @@ export default function CountDownAnimation() {
                 })
                 const scale = scrollX.interpolate({
                     inputRange,
-                    outputRange: [0.6, 1.1, 0.6]
+                    outputRange: [0.7, 1, 0.7]
                 })
 
                 return <View style={styles.timerListView}>
-                    <ReactAnimated.Text
+                    <Animated.Text
                         style={
                             [styles.text,
                             { opacity },
                             { transform: [{ scale }] }]}>
-                        {item}</ReactAnimated.Text>
+                        {item}</Animated.Text>
                 </View>
 
             }} />
+
+
+        <Animated.View style={{
+            position: 'absolute',
+            justifyContent: 'center',
+            alignSelf: "center",
+            opacity: textOpacity
+        }}>
+            <TextInput ref={inputRef} style={[styles.text]} defaultValue={seconds.toString()} />
+        </Animated.View>
 
     </View>
 }
@@ -156,6 +197,7 @@ const styles = StyleSheet.create({
     circle: {
         backgroundColor: '#F55D3E',
         position: 'absolute',
+        borderRadius: 50
     },
     text: {
         fontSize: ITEM_SIZE * 0.7,
