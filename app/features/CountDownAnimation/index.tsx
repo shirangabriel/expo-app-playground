@@ -5,8 +5,7 @@ import { Animated, Dimensions, StyleSheet, TextInput, Vibration, View } from "re
 const { width, height } = Dimensions.get('window');
 
 const timerList = [...Array(13).keys()].map(i => i === 0 ? 1 : i * 5);
-const ITEM_SIZE = width * 0.32
-// const ITEM_SPACING = (width - ITEM_SIZE) / 2
+const ITEM_SIZE = width / 3
 
 export default function CountDownAnimation() {
     const scrollX = React.useRef(new Animated.Value(0)).current
@@ -51,12 +50,12 @@ export default function CountDownAnimation() {
             Animated.parallel([
                 Animated.timing(textInputAnimation, {
                     toValue: 0,
-                    duration: seconds * 1000,
+                    duration: seconds * 100,
                     useNativeDriver: true,
                 }),
                 Animated.timing(timerAnimation, {
                     toValue: height,
-                    duration: seconds * 1000,
+                    duration: seconds * 100,
                     useNativeDriver: true,
                 })
             ]),
@@ -144,7 +143,9 @@ export default function CountDownAnimation() {
             keyExtractor={item => item.toString()}
             snapToInterval={ITEM_SIZE}
             decelerationRate={'fast'}
-            contentContainerStyle={{ paddingHorizontal: ITEM_SIZE }}
+            contentContainerStyle={{
+                paddingHorizontal: width / 3
+            }}
             onScroll={Animated.event(
                 [{ nativeEvent: { contentOffset: { x: scrollX } } }],
                 { useNativeDriver: true }
@@ -171,7 +172,9 @@ export default function CountDownAnimation() {
                         style={
                             [styles.text,
                             { opacity },
-                            { transform: [{ scale }] }]}>
+                            { transform: [{ scale }] }
+
+                            ]}>
                         {item}</Animated.Text>
                 </View>
 
@@ -189,7 +192,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        // backgroundColor: '#172A3A'
         backgroundColor: '#242331'
     },
     timerListView: {
