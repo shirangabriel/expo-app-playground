@@ -10,7 +10,7 @@ const ITEM_SIZE = width / 3
 export default function CountDownAnimation() {
     const scrollX = React.useRef(new Animated.Value(0)).current
     const inputRef = React.useRef();
-    const [seconds, setSeconds] = useState<number>(1);
+    const [duration, setDuration] = useState<number>(1);
     const timerAnimation = React.useRef(new Animated.Value(height)).current
     const buttonAnimation = React.useRef(new Animated.Value(0)).current
     const textInputAnimation = React.useRef(new Animated.Value(timerList[0])).current
@@ -33,7 +33,7 @@ export default function CountDownAnimation() {
 
 
     const animation = React.useCallback(() => {
-        textInputAnimation.setValue(seconds);
+        textInputAnimation.setValue(duration);
         Animated.sequence([
             Animated.timing(buttonAnimation, {
                 toValue: 1,
@@ -50,12 +50,12 @@ export default function CountDownAnimation() {
             Animated.parallel([
                 Animated.timing(textInputAnimation, {
                     toValue: 0,
-                    duration: seconds * 100,
+                    duration: duration * 100,
                     useNativeDriver: true,
                 }),
                 Animated.timing(timerAnimation, {
                     toValue: height,
-                    duration: seconds * 100,
+                    duration: duration * 100,
                     useNativeDriver: true,
                 })
             ]),
@@ -65,14 +65,14 @@ export default function CountDownAnimation() {
         ]).start(() => {
             Vibration.cancel();
             Vibration.vibrate();
-            textInputAnimation.setValue(seconds)
+            textInputAnimation.setValue(duration)
             Animated.timing(buttonAnimation, {
                 toValue: 0,
                 duration: 300,
                 useNativeDriver: true
             }).start()
         })
-    }, [seconds])
+    }, [duration])
 
 
     const opacity = buttonAnimation.interpolate({
@@ -127,7 +127,7 @@ export default function CountDownAnimation() {
             alignSelf: "center",
             opacity: textOpacity
         }}>
-            <TextInput ref={inputRef} style={[styles.text]} defaultValue={seconds.toString()} />
+            <TextInput ref={inputRef} style={[styles.text]} defaultValue={duration.toString()} />
         </Animated.View>
 
         <Animated.FlatList
@@ -138,7 +138,7 @@ export default function CountDownAnimation() {
             bounces={false}
             onMomentumScrollEnd={ev => {
                 const index = Math.round(ev.nativeEvent.contentOffset.x / ITEM_SIZE)
-                setSeconds(timerList[index])
+                setDuration(timerList[index])
             }}
             keyExtractor={item => item.toString()}
             snapToInterval={ITEM_SIZE}
