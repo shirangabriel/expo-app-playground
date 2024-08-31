@@ -9,7 +9,6 @@ const timerList = [...Array(13).keys()].map(i => i === 0 ? 1 : i * 5);
 const ITEM_SIZE = width / 3
 
 export default function CountDownAnimation() {
-    const scrollX = React.useRef(new Animated.Value(0)).current
     const inputRef = React.useRef();
     const [duration, setDuration] = useState<number>(1);
     const timerAnimation = React.useRef(new Animated.Value(height)).current
@@ -150,11 +149,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#242331'
-    },
-    timerListView: {
-        width: ITEM_SIZE,
-        justifyContent: 'center',
-        alignItems: 'center'
     },
     circle: {
         backgroundColor: '#F55D3E',
