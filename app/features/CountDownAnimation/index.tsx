@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Animated, Dimensions, StyleSheet, TextInput, Vibration, View } from "react-native";
 import ListView from "./ListView";
+import { GoBackButton } from "@/app/components/Button";
 
 const { width, height } = Dimensions.get('window');
 
@@ -92,6 +93,7 @@ export default function CountDownAnimation() {
 
     return <View style={styles.container}>
         <Stack.Screen options={{ headerTitle: "", headerShown: false }} />
+        <GoBackButton />
         <Animated.View
             style={[StyleSheet.absoluteFill, {
                 height,

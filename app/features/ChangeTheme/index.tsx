@@ -1,4 +1,5 @@
 
+import { GoBackButton } from '@/app/components/Button';
 import { ThemedText } from '@/components/ThemedText';
 import { Colors } from '@/constants/Colors';
 import { Link, Stack, router } from 'expo-router';
@@ -42,6 +43,7 @@ export default function ChangeTheme() {
 
     return <Animated.View style={[styles.container, backgroundStyle]}>
         <StatusBar barStyle={theme === 'dark' ? "light-content" : "dark-content"} />
+        <GoBackButton />
         <Stack.Screen
             options={{
                 headerTitle: "Change Theme",
@@ -57,9 +59,6 @@ export default function ChangeTheme() {
                 trackColor={SWITCH_TRACK_COLOR} />
 
         </Animated.View>
-
-        <ThemedText style={{ marginTop: 100, color: 'blue', fontSize: 18 }} onPress={() => router.back()}  >Go Back</ThemedText>
-
 
     </Animated.View>
 }
