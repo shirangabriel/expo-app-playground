@@ -1,6 +1,7 @@
 import { Stack } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { Animated, Dimensions, StyleSheet, TextInput, Vibration, View } from "react-native";
+import ListView from "./ListView";
 
 const { width, height } = Dimensions.get('window');
 
@@ -90,7 +91,6 @@ export default function CountDownAnimation() {
     })
 
 
-
     return <View style={styles.container}>
         <Stack.Screen options={{ headerTitle: "", headerShown: false }} />
         <Animated.View
@@ -130,55 +130,12 @@ export default function CountDownAnimation() {
             <TextInput ref={inputRef} style={[styles.text]} defaultValue={duration.toString()} />
         </Animated.View>
 
-        <Animated.FlatList
-            style={{ flexGrow: 0, opacity }}
-            data={timerList}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            bounces={false}
-            onMomentumScrollEnd={ev => {
-                const index = Math.round(ev.nativeEvent.contentOffset.x / ITEM_SIZE)
-                setDuration(timerList[index])
-            }}
-            keyExtractor={item => item.toString()}
-            snapToInterval={ITEM_SIZE}
-            decelerationRate={'fast'}
-            contentContainerStyle={{
-                paddingHorizontal: width / 3
-            }}
-            onScroll={Animated.event(
-                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-                { useNativeDriver: true }
-
-            )}
-            renderItem={({ item, index }) => {
-                const inputRange = [
-                    (index - 1) * ITEM_SIZE,
-                    index * ITEM_SIZE,
-                    (index + 1) * ITEM_SIZE,
-                ]
-
-                const opacity = scrollX.interpolate({
-                    inputRange,
-                    outputRange: [0.4, 1, 0.4]
-                })
-                const scale = scrollX.interpolate({
-                    inputRange,
-                    outputRange: [0.7, 1, 0.7]
-                })
-
-                return <View style={styles.timerListView}>
-                    <Animated.Text
-                        style={
-                            [styles.text,
-                            { opacity },
-                            { transform: [{ scale }] }
-
-                            ]}>
-                        {item}</Animated.Text>
-                </View>
-
-            }} />
+        <ListView
+            timerList={timerList}
+            itemSize={ITEM_SIZE}
+            onScrollEnd={(d) => setDuration(d)}
+            listOpacity={opacity}
+            textStyle={styles.text} />
 
 
 
