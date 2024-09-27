@@ -23,5 +23,10 @@ export const features = {
         id: 'f5',
         title: 'Count Down Timer',
         slug: 'features/CountDownAnimation'
+    },
+    "f6": {
+        id: 'f6',
+        title: 'Pinch Gestures',
+        slug: 'features/PinchGestures'
     }
 };

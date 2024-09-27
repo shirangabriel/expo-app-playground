@@ -4,10 +4,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { router } from "expo-router";
 
 type Props = {
+    color?: string
 }
-const GoBackButton: React.FC<Props> = () => {
+const GoBackButton: React.FC<Props> = ({ color }) => {
     return <Pressable onPress={() => { router.back() }} style={styles.container}>
-        <Ionicons name="arrow-back-circle" size={32} color="gray" />
+        <Ionicons name="arrow-back-circle" size={32} color={color ? color : "gray"} />
     </Pressable>
 }
 
