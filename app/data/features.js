@@ -28,5 +28,10 @@ export const features = {
         id: 'f6',
         title: 'Pinch Gestures',
         slug: 'features/PinchGestures'
+    },
+    "f7": {
+        id: 'f7',
+        title: 'Image Pinch To Scale',
+        slug: 'features/ImagePinchToScale'
     }
 };
