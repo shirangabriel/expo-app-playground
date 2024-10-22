@@ -8,19 +8,19 @@ type Props = {
   style?: any,
   title?: string,
   headerShown?: boolean,
-  hideBackButton?: boolean,
+  showCustomBackButton?: boolean,
   backButtonColor?: string
 }
 
 
-export default function Screen({ children, style, title, headerShown, hideBackButton, backButtonColor }: Props) {
+export default function Screen({ children, style, title, headerShown, showCustomBackButton, backButtonColor }: Props) {
   return (
     <>
-      <Stack.Screen options={{ title, headerShown }} />
+      <Stack.Screen options={{ title, headerShown: headerShown && title ? true : false }} />
       <ThemedView style={[styles.container, style]}>
         {children}
       </ThemedView>
-      {!headerShown && !hideBackButton && <GoBackButton color={backButtonColor} />}
+      {!headerShown && showCustomBackButton && <GoBackButton color={backButtonColor} />}
     </>
   );
 }

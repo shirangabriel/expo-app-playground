@@ -50,7 +50,7 @@ const ImagePinchToScale = () => {
 
 
     return (
-        <Screen headerShown={false}>
+        <Screen headerShown={false} showCustomBackButton>
             <GestureDetector gesture={gesture}>
                 <Animated.View>
                     <Animated.Image

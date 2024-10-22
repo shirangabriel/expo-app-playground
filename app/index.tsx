@@ -1,27 +1,23 @@
 import { ThemedText } from '@/components/ThemedText';
-import { Link, Stack, router } from 'expo-router';
-import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native';
-import { features } from './data/features'
-import { useThemeColor } from '@/hooks/useThemeColor';
-import OnboardingButtonAnimation from './features/OnboardingButtonAnimation';
-export default function Features() {
+import { Stack } from 'expo-router';
+import { StyleSheet, SafeAreaView } from 'react-native';
+import Auth from './Auth';
+import Features from './features';
 
-    type ItemProps = { title: string, onPress: () => void };
+export default function EntryPoint() {
 
-    const Item = ({ title, onPress }: ItemProps) => (
-        <TouchableOpacity style={[styles.item, { backgroundColor: useThemeColor({}, "background") }]} onPress={onPress}>
-            <ThemedText style={styles.title}>{title}</ThemedText>
-        </TouchableOpacity>
-    );
+    const renderView = () => {
 
-    return <SafeAreaView style={styles.container}>
-        <Stack.Screen options={{ headerShown: false, headerTitle: "" }} />
-        <FlatList
-            data={Object.values(features)}
-            renderItem={({ item }) => <Item title={item.title}
-                onPress={() => router.navigate(item.slug)} />}
-        />
-    </SafeAreaView>
+        let isAuthenticated = true
+
+        if (!isAuthenticated)
+            return <Features />
+        else
+            return <Auth />
+    }
+
+
+    return renderView()
 
 }
 
@@ -29,14 +25,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         display: 'flex',
-    },
-    item: {
-        padding: 20,
-        marginVertical: 2,
-        marginHorizontal: 16,
-        borderRadius: 5
-    },
-    title: {
-        fontSize: 16,
     },
 });
