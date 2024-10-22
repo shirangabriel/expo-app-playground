@@ -5,6 +5,12 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
+    "android": {
+      "package": "com.widgetcorps.expoappplayground"
+    },
+    "ios": {
+      "bundleIdentifier": "com.widgetcorps.expoappplayground"
+    },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "splash": {
