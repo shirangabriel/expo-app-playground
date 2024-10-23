@@ -6,10 +6,14 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
       "package": "com.example.expoappplayground"
     },
     "ios": {
-      "bundleIdentifier": "com.example.expoappplayground"
+      "supportsTablet": true
     },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -17,15 +21,6 @@
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
-      }
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +32,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "acfa2036-867f-45df-93d2-08f41a4c32d8"
+      }
     }
   }
 }
