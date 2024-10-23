@@ -13,7 +13,8 @@
       "package": "com.example.expoappplayground"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.example.expoappplayground"
     },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
