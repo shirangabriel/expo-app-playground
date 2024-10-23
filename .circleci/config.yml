@@ -5,7 +5,7 @@ jobs:
   build-apk:
     # Build APK with Expo EAS
     docker:
-      - image: circleci/node:16
+      - image: circleci/node:18
     steps:
       - checkout
       - node/install-packages:
