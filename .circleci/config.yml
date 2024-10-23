@@ -18,7 +18,7 @@ jobs:
           command: yarn global add eas-cli
       - run:
           name: EAS build APK
-          command: eas build --platform android --profile production
+          command: eas build --platform android --profile preview --local
       - persist_to_workspace:
           root: ./build
           paths:
