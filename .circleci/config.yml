@@ -1,38 +1,26 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:.,package_manager:yarn:,test:jest:
 version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
-  test-node:
-    # Install node dependencies and run tests
-    executor: node/default
-    environment:
-      JEST_JUNIT_OUTPUT_DIR: ./test-results/
+  build-apk:
+    # Build APK with Expo EAS
+    docker:
+      - image: circleci/node:16
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
       - run:
-          command: yarn add jest-junit --ignore-workspace-root-check
+          name: Install EAS CLI
+          command: yarn global add eas-cli
       - run:
-          name: Run tests
-          command: yarn run test --ci --runInBand --reporters=default --reporters=jest-junit
-      - store_test_results:
-          path: ./test-results/
-  deploy:
-    # This is an example deploy job, not actually used by the workflow
-    docker:
-      - image: cimg/base:stable
-    steps:
-      # Replace this with steps to deploy to users
-      - run:
-          name: deploy
-          command: '#e.g. ./deploy.sh'
+          name: EAS build APK
+          command: eas build --platform android --profile production
+      - persist_to_workspace:
+          root: ./build
+          paths:
+            - ./**/*.apk
 workflows:
-  build-and-test:
+  build-and-deploy:
     jobs:
-      - test-node
-    # - deploy:
-    #     requires:
-    #       - test-node
+      - build-apk
