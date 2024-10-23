@@ -1,14 +1,12 @@
-# This config was automatically generated from your source code
-# Stacks detected: deps:node:.,package_manager:yarn:,test:jest:
 version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
   build-apk:
-    # Install node dependencies and run tests
     executor: node/default
     environment:
       JEST_JUNIT_OUTPUT_DIR: ./test-results/
+      EXPO_TOKEN: $EXPO_TOKEN  # Combine both environment variables in one block
     steps:
       - checkout
       - node/install-packages:
@@ -23,15 +21,11 @@ jobs:
           root: ./build
           paths:
             - ./**/*.apk    
-    environment:
-      EXPO_TOKEN: $EXPO_TOKEN         
 
   deploy:
-    # This is an example deploy job, not actually used by the workflow
     docker:
       - image: cimg/base:stable
     steps:
-      # Replace this with steps to deploy to users
       - run:
           name: deploy
           command: '#e.g. ./deploy.sh'
