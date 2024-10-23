@@ -6,10 +6,10 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "android": {
-      "package": "com.widgetcorps.expoappplayground"
+      "package": "com.example.expoappplayground"
     },
     "ios": {
-      "bundleIdentifier": "com.widgetcorps.expoappplayground"
+      "bundleIdentifier": "com.example.expoappplayground"
     },
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
