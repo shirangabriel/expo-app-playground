@@ -1,16 +1,12 @@
 import { ThemedText } from '@/components/ThemedText';
 import { Link, Stack, router } from 'expo-router';
-import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import { useThemeColor } from '@/hooks/useThemeColor';
-import client from '@/config/appwriteClient';
 import { features } from '../data/features';
 
 export default function Features() {
 
     type ItemProps = { title: string, onPress: () => void };
-
-    console.log({ client });
-
 
     const Item = ({ title, onPress }: ItemProps) => (
         <TouchableOpacity style={[styles.item, { backgroundColor: useThemeColor({}, "background") }]} onPress={onPress}>

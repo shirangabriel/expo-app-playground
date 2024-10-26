@@ -1,6 +1,3 @@
-import { ThemedText } from '@/components/ThemedText';
-import { Stack } from 'expo-router';
-import { StyleSheet, SafeAreaView } from 'react-native';
 import Auth from './Auth';
 import Features from './features';
 
@@ -10,7 +7,7 @@ export default function EntryPoint() {
 
         let isAuthenticated = true
 
-        if (!isAuthenticated)
+        if (isAuthenticated)
             return <Features />
         else
             return <Auth />
@@ -20,10 +17,3 @@ export default function EntryPoint() {
     return renderView()
 
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        display: 'flex',
-    },
-});
