@@ -1,13 +1,16 @@
-import { StyleSheet, useWindowDimensions, View, Dimensions } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
 import { ToggleButton } from "../views/ToggleButton";
 import { useState } from "react";
 import { SwitchesData } from "@/app/data/switches";
 
 const { width, height } = Dimensions.get('window');
+const BACKGROUND_COLOR = "#eeeeee"
 
 const NeumorphismDesignContainer = () => {
 
     const [switches, setSwitches] = useState(SwitchesData);
+
+
 
 
     const handleOnPress = (item, index) => {
@@ -18,8 +21,7 @@ const NeumorphismDesignContainer = () => {
         })
     }
 
-    const BACKGROUND_COLOR = "#EEEEEE"
-    const ACTIVE_COLOR = "#F96F5D"
+    const ACTIVE_COLOR = "#FF5154"
 
     console.log(width, height);
 
@@ -49,7 +51,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
         width: "100%",
-        backgroundColor: '#EEEEEE'
+        backgroundColor: BACKGROUND_COLOR
 
     },
     wrapper: {

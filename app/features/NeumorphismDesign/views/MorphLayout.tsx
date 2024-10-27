@@ -26,9 +26,14 @@ const MorphLayout = ({ mainColor, children, width, height, radius, isActive }: P
         },
         topRevert: {
             shadowColor: darkShadow, //darker
+            shadowOpacity: 0.3,
+            borderWidth: 1,
+            borderColor: 'white',
+            borderRadius: radius,
         },
         bottomRevert: {
             shadowColor: lightShadow, //darker
+            shadowOpacity: 0.3,
         },
         center: {
             width: width,
@@ -39,6 +44,10 @@ const MorphLayout = ({ mainColor, children, width, height, radius, isActive }: P
             // borderColor: lightShadow,
             justifyContent: 'center',
             alignItems: 'center',
+        },
+        centerRevert: {
+            // borderWidth: 2,
+            // borderColor: 'white',
         },
         bottom: {
             shadowOffset: { width: 6, height: 6 },
@@ -51,9 +60,9 @@ const MorphLayout = ({ mainColor, children, width, height, radius, isActive }: P
 
 
     return (
-        <View style={styles.top}>
-            <View style={styles.bottom}>
-                <View style={styles.center}>
+        <View style={[styles.top, isActive && styles.topRevert]}>
+            <View style={[styles.bottom, isActive && styles.bottomRevert]}>
+                <View style={[styles.center, isActive && styles.centerRevert]}>
                     {children}
                 </View>
             </View>

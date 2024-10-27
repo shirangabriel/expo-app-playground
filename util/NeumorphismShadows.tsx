@@ -38,24 +38,25 @@ function luminance(color: string): number {
 }
 
 export function generateNeumorphismColors(mainColor: string): NeumorphismColors {
-    const darkShadow = adjustColor(mainColor, -25); 
-    const lightShadow = adjustColor(mainColor, 15);  
-    const borderColor = adjustColor(mainColor, -15); 
-    
+    const darkShadow = adjustColor(mainColor, -25);
+    const lightShadow = adjustColor(mainColor, 15);
+    const borderColor = adjustColor(mainColor, -15);
+
     const mainLuminance = luminance(mainColor);
-    const textColor = mainLuminance > 0.5 ? "#333333" : "#ffffff";
+    // Set text color based on luminance
+    let textColor = mainLuminance > 0.5
+        ? adjustColor(mainColor, -60)  // Darker accent for light backgrounds
+        : adjustColor(mainColor, 60);  // Brighter accent for dark backgrounds}
 
     // For "pressed" effect, invert the main color and swap shadows
     const invertedBackground = adjustColor(mainColor, mainLuminance > 0.5 ? -10 : 10);
-    const pressedDarkShadow = lightShadow;
-    const pressedLightShadow = darkShadow;
-    const pressedBorderColor = invertColor(borderColor);
 
-    return { 
-        darkShadow, 
-        lightShadow, 
-        borderColor, 
-        textColor, 
+
+    return {
+        darkShadow,
+        lightShadow,
+        borderColor,
+        textColor,
         backgroundColor: invertedBackground
     };
 }

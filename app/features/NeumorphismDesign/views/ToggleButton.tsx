@@ -1,7 +1,7 @@
 import { ThemedText } from "@/components/ThemedText"
 
 import Feather from '@expo/vector-icons/Feather';
-import { Pressable, StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import MorphLayout from "./MorphLayout";
 import { generateNeumorphismColors } from "@/util/NeumorphismShadows";
 
@@ -19,6 +19,8 @@ const ToggleButton = ({ onPress, title, isActive, mainColor, icon, textColor, }:
     const BUTTON_SIZE = 100
     const BORDER_RADIUS = BUTTON_SIZE / 6
 
+    const  { textColor: normalTextColor } = generateNeumorphismColors(BACKGROUND_COLOR)
+
     const styles = StyleSheet.create({
         buttonContainer: {
             justifyContent: "center",
@@ -31,7 +33,7 @@ const ToggleButton = ({ onPress, title, isActive, mainColor, icon, textColor, }:
 
     })
 
-    const iconColor: string = isActive ? textColor : "#333333"
+    const iconColor: string = isActive ? textColor : normalTextColor
 
     return <Pressable onPress={onPress}>
         <MorphLayout mainColor={BACKGROUND_COLOR} width={BUTTON_SIZE} height={BUTTON_SIZE} radius={BORDER_RADIUS} isActive={isActive}>
