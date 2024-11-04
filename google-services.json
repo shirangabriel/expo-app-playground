@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "681054146691",
+    "project_id": "rn-playground-f54da",
+    "storage_bucket": "rn-playground-f54da.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681054146691:android:4ccaf25e2f8361343b0bb6",
+        "android_client_info": {
+          "package_name": "com.example.expoappplayground"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUgzOpBnmUeRiprhK1woBjiO7aplMlldw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:681054146691:android:06d8888fed840d1a3b0bb6",
+        "android_client_info": {
+          "package_name": "com.rnplayground"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUgzOpBnmUeRiprhK1woBjiO7aplMlldw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
