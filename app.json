@@ -10,12 +10,10 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "./google-services.json",
       "package": "com.example.expoappplayground"
     },
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.example.expoappplayground"
     },
     "scheme": "myapp",
@@ -31,17 +29,7 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
-      "@react-native-firebase/app",
-      "@react-native-firebase/auth",
-      [
-        "expo-build-properties",
-        {
-          "ios": {
-            "useFrameworks": "static"
-          }
-        }
-      ]
+      "expo-router"
     ],
     "experiments": {
       "typedRoutes": true
