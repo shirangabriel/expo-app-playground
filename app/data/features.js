@@ -30,6 +30,10 @@ const list = [
     {
         title: 'Neumorphism Design',
         slug: 'features/NeumorphismDesign'
+    },
+    {
+        title: '🧸 Zustand',
+        slug: 'features/Zustand'
     }
 ];
 
