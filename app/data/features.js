@@ -34,6 +34,10 @@ const list = [
     {
         title: '🧸 Zustand',
         slug: 'features/Zustand'
+    },
+    {
+        title: 'Run App',
+        slug: 'features/RunApp'
     }
 ];
 
