@@ -1,0 +1,22 @@
+Say Ding Ding Everytime
+
+##Context
+This is app is to tryout some interest things, like animations, design etc 
+
+
+## Project structure
+app/features
+
+- [x] NeumorphismDesign
+- [ ] PinchGestures
+- [ ] CountDownAnimation
+- [ ] OnboardingButtonAnimation
+- [ ] RunApp
+etc
+
+
+
+it easier to add new feature to the navigation
+first you create a record in app/data/features.js
+then you can create the component folder in app/features
+you can use Screen component to wrap the new feature
