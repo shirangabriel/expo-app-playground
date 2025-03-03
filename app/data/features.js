@@ -38,6 +38,10 @@ const list = [
     {
         title: 'Run App',
         slug: 'features/RunApp'
+    },
+    {
+        title: 'Gravity Animation',
+        slug: 'features/GravityAnimation'
     }
 ];
 
