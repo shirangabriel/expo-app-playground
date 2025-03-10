@@ -1,47 +1,53 @@
 const list = [
     {
         title: 'Onboarding Animation',
-        slug: 'features/OnboardingButtonAnimation'
-    },
-    {
-        title: 'Webview',
-        slug: 'features/webviewsession'
-    },
-    {
-        title: 'URL Based Routing',
-        slug: 'features/'
+        slug: 'features/OnboardingButtonAnimation',
+        "icon": '🚀'
     },
     {
         title: 'Change Theme',
-        slug: 'features/ChangeTheme'
+        slug: 'features/ChangeTheme',
+        "icon": '🎨'
     },
     {
         title: 'Count Down Timer',
-        slug: 'features/CountDownAnimation'
+        slug: 'features/CountDownAnimation',
+        "icon": '⏳'
     },
     {
         title: 'Pinch Gestures',
-        slug: 'features/PinchGestures'
+        slug: 'features/PinchGestures',
+        "icon": '👌'
     },
     {
         title: 'Image Pinch To Scale',
-        slug: 'features/ImagePinchToScale'
+        slug: 'features/ImagePinchToScale',
+        "icon": '🔍'
     },
     {
         title: 'Neumorphism Design',
-        slug: 'features/NeumorphismDesign'
+        slug: 'features/NeumorphismDesign',
+        "icon": '🔵'
     },
     {
-        title: '🧸 Zustand',
-        slug: 'features/Zustand'
+        title: 'Zustand',
+        slug: 'features/Zustand',
+        "icon": '🧸'
     },
     {
         title: 'Run App',
-        slug: 'features/RunApp'
+        slug: 'features/RunApp',
+        "icon": '🏃'
     },
     {
         title: 'Gravity Animation',
-        slug: 'features/GravityAnimation'
+        slug: 'features/GravityAnimation',
+        "icon": '🌌'
+    },
+    {
+        title: 'Credit Card Reveal Animation',
+        slug: 'features/CreditCardRevealAnimation',
+        icon: '💳'
     }
 ];
 

@@ -1,24 +1,29 @@
 import { ThemedText } from '@/components/ThemedText';
 import { Link, Stack, router } from 'expo-router';
-import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native'
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { features } from '../data/features';
 
 export default function Features() {
 
-    type ItemProps = { title: string, onPress: () => void };
+    type ItemProps = { icon: string, title: string, onPress: () => void };
 
-    const Item = ({ title, onPress }: ItemProps) => (
+    const Item = ({ icon, title, onPress }: ItemProps) => (
         <TouchableOpacity style={[styles.item, { backgroundColor: useThemeColor({}, "background") }]} onPress={onPress}>
-            <ThemedText style={styles.title}>{title}</ThemedText>
+            <View style={styles.wrapper}>
+                <ThemedText style={styles.heading}>{icon}</ThemedText>
+                <ThemedText style={styles.title}>{title}</ThemedText>
+            </View>
         </TouchableOpacity>
     );
 
     return <SafeAreaView style={styles.container}>
         <Stack.Screen options={{ headerShown: false, headerTitle: "" }} />
         <FlatList
+            contentContainerStyle={{ paddingHorizontal: 8 }}
+            numColumns={2}
             data={Object.values(features)}
-            renderItem={({ item }) => <Item title={item.title}
+            renderItem={({ item }) => <Item icon={item.icon} title={item.title}
                 onPress={() => router.navigate(item.slug)} />}
         />
     </SafeAreaView>
@@ -28,15 +33,29 @@ export default function Features() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        display: 'flex',
+        // padding: 8,
     },
     item: {
-        padding: 20,
-        marginVertical: 2,
-        marginHorizontal: 16,
-        borderRadius: 5
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        paddingVertical: 16,
+        margin: 8,
+        borderRadius: 12,
+        minWidth: '45%',
+    },
+    wrapper: {
+        alignItems: 'center',
     },
     title: {
         fontSize: 16,
+        textAlign: 'center',
+        marginTop: 8,
     },
+    heading: {
+        fontSize: 46,
+        fontWeight: "bold",
+        lineHeight: 56,
+    }
 });
