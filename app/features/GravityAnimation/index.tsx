@@ -23,8 +23,8 @@ const GravityAnimation: React.FC = () => {
         // First bounce
         Animated.spring(ballPosition, {
           toValue: toValue - 30,
-          friction: 3,
-          tension: 100,
+          friction: 1,
+          tension: 50,
           useNativeDriver: false,
         }),
       ]).start();
