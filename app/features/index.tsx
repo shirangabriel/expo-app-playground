@@ -1,10 +1,17 @@
 import { ThemedText } from '@/components/ThemedText';
-import { Link, Stack, router } from 'expo-router';
+import { Link, Redirect, Stack, router } from 'expo-router';
 import { StyleSheet, SafeAreaView, FlatList, TouchableOpacity, View } from 'react-native'
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { features } from '../data/features';
+import { useEffect } from 'react';
+import { CreditCard } from 'react-native-appwrite';
+import CreditCardRevealAnimation from './CreditCardRevealAnimation';
 
 export default function Features() {
+
+    // redirect to the first feature
+
+    return <CreditCardRevealAnimation />
 
     type ItemProps = { icon: string, title: string, onPress: () => void };
 
